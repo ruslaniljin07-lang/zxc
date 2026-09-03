@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Доска лидеров — Codigo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-warning text-dark text-center">
+                <h3 class="mb-0">🏆 Доска лидеров</h3>
+            </div>
+            <div class="table-responsive">
+                {% if entries %}
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Пользователь</th>
+                            <th>XP</th>
+                            <th>Обновлено</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in entries %}
+                            <tr>
+                                <td>
+                                    {% if entry.rank == 1 %}
+                                        🥇 {{ entry.rank }}
+                                    {% elif entry.rank == 2 %}
+                                        🥈 {{ entry.rank }}
+                                    {% elif entry.rank == 3 %}
+                                        🥉 {{ entry.rank }}
+                                    {% else %}
+                                        {{ entry.rank }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ entry.user.username }}</td>
+                                <td><strong>{{ entry.xp }}</strong></td>
+                                <td>
+                                    {{ entry.last_updated.strftime('%d.%m.%Y') if entry.last_updated else '-' }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="text-center p-4">
+                    <p class="text-muted mb-0">Пока нет участников. Будь первым!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

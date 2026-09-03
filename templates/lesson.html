@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block title %}{{ lesson.title }} — Codigo{% endblock %}
+
+{% block extra_css %}
+<style>
+    #codeEditor {
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 14px;
+        tab-size: 4;
+    }
+    .output-box {
+        background: #2d2d2d;
+        color: #d4d4d4;
+        border-radius: 8px;
+        padding: 1rem;
+        min-height: 100px;
+        overflow-x: auto;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+    }
+    .hint-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">{{ lesson.title }}</h3>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">{{ lesson.description }}</p>
+
+                {% if lesson.theory %}
+                    <div class="alert alert-info mt-3">
+                        <h5><i class="bi bi-info-circle"></i> Теория</h5>
+                        <ul class="mb-0">
+                            {% for point in lesson.theory %}
+                                <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                {% if progress %}
+                    <div class="mb-2">
+                        {% if progress.completed %}
+                            <span class="badge bg-success">✅ Завершено</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">В процессе</span>
+                        {% endif %}
+                        <span class="badge bg-secondary">Попыток: {{ progress.attempts }}</span>
+                    </div>
+                {% endif %}
+
+                <h5 class="mt-4 mb-2">💻 Ваш код</h5>
+                <textarea id="codeEditor" class="form-control" rows="12">{{ initial_code }}</textarea>
+
+                {% if hints %}
+                    <div class="hint-box">
+                        <strong>💡 Подсказка:</strong>
+                        <p class="mb-0">{{ hints }}</p>
+                    </div>
+                {% endif %}
+
+                <div class="d-flex justify-content-between mt-3">
+                    <button id="runBtn" class="btn btn-success">
+                        <i class="bi bi-play-circle"></i> Проверить
+                    </button>
+                    <button id="resetBtn" class="btn btn-outline-secondary" type="button">
+                        <i class="bi bi-arrow-clockwise"></i> Сбросить
+                    </button>
+                </div>
+
+                <div id="outputBox" class="output-box mt-3" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('resetBtn').addEventListener('click', function() {
+    var code = {{ initial_code | tojson }};
+    document.getElementById('codeEditor').value = code;
+    document.getElementById('outputBox').style.display = 'none';
+});
+
+document.getElementById('runBtn').addEventListener('click', function() {
+    const code = document.getElementById('codeEditor').value;
+    const output = document.getElementById('outputBox');
+    output.style.display = 'block';
+    output.textContent = 'Выполнение...';
+
+    fetch('/lesson/{{ lesson.id }}', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'code=' + encodeURIComponent(code)
+    })
+    .then(r => r.json())
+    .then(data => {
+        let html = '';
+        if (data.stdout) {
+            html += '<span style="color:#569cd6">Output:</span>\n' + data.stdout + '\n\n';
+        }
+        if (data.stderr) {
+            html += '<span style="color:#f44747">Error:</span>\n' + data.stderr + '\n\n';
+        }
+        if (data.hint) {
+            html += '<span style="color:#ffcc00">💡 Подсказка:</span> ' + data.hint + '\n\n';
+        }
+        if (data.success) {
+            html += '<span style="color:#4ec9b0">✅ Урок пройден!</span>';
+        } else {
+            html += '<span style="color:#f44747">❌ Проверка не пройдена</span>';
+        }
+        output.textContent = html;
+    })
+    .catch(err => {
+        output.textContent = 'Ошибка: ' + err.message;
+    });
+});
+</script>
+{% endblock %}

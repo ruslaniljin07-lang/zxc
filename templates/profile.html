@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block title %}Профиль — Codigo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">👤 Профиль: {{ user.username }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4>{{ user.username }} {{ status_emoji }} {{ status_name }}</h4>
+                        <p class="text-muted">{{ user.email }}</p>
+                        <p><strong>Уровень:</strong> {{ user.level }}</p>
+                        <p><strong>XP:</strong> {{ user.xp }}</p>
+                        <p><strong>Streak:</strong> {{ user.streak_count }} дней 🔥</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">🏆 Достижения ({{ earned_ids|length }}/{{ achievements|length }})</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for ach in achievements %}
+                        <div class="col-md-4 col-lg-3 mb-3 text-center">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    {% if ach.id in earned_ids %}
+                                        <span class="display-5">{{ ach.icon }}</span>
+                                        <h6 class="mt-2">{{ ach.name }}</h6>
+                                        <small class="text-muted">{{ ach.description }}</small>
+                                        <small class="text-success d-block mt-1">+{ ach.xp_reward } XP</small>
+                                    {% else %}
+                                        <span class="display-5 text-muted">🔒</span>
+                                        <h6 class="mt-2 text-muted">{{ ach.name }}</h6>
+                                        <small class="text-muted">Не достигнуто</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% if progress_records %}
+            <div class="card shadow mb-4">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">📚 Прогресс уроков</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Урок</th>
+                                <th>Попыток</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for progress in progress_records %}
+                                <tr>
+                                    <td>#{{ progress.lesson_id }}</td>
+                                    <td>{{ progress.attempts }}</td>
+                                    <td>
+                                        {% if progress.completed %}
+                                            <span class="badge bg-success">✅ Завершено</span>
+                                        {% else %}
+                                            <span class="badge bg-warning text-dark">В процессе</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if test_results %}
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">📝 Результаты тестов</h4>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Счёт</th>
+                                <th>Уровень</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in test_results %}
+                                <tr>
+                                    <td>{{ result.timestamp.strftime('%d.%m.%Y %H:%M') }}</td>
+                                    <td>{{ result.score }}/5</td>
+                                    <td>Уровень {{ result.level }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

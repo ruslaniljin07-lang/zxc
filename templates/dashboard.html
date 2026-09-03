@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Дашборд — Codigo{% endblock %}
+
+{% block extra_css %}
+<style>
+    .status-badge {
+        font-size: 2rem;
+        background: linear-gradient(135deg, {{ status_color }}, #8e44ad);
+        color: white !important;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+    }
+    .xp-bar {
+        height: 25px;
+        background: #ecf0f1;
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    .xp-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #f1c40f, #e74c3c);
+        transition: width 0.5s ease;
+    }
+    .streak-counter {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #e74c3c;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <div class="streak-counter">{{ streak }} 🔥</div>
+    <h3 class="mt-2">Дней подряд</h3>
+    <span class="badge status-badge mt-2">{{ status_emoji }} {{ status_name }}</span>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                <h5>Уровень: {{ level }}</h5>
+                <p class="text-muted">XP: {{ xp }} / {{ xp_to_next + xp }}</p>
+                <div class="xp-bar">
+                    <div class="xp-fill" style="width: {{ xp }}%"></div>
+                </div>
+                <p class="text-end mt-1">
+                    До следующего уровня: {{ xp_to_next }} XP
+                </p>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4>{{ user.test_results | length if user.test_results|length > 0 else 0 }}</h4>
+                        <p class="text-muted mb-0">Тестов пройдено</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4>{{ user.lesson_progress | length }}</h4>
+                        <p class="text-muted mb-0">Уроков пройдено</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4>{{ user_xp or 0 }}</h4>
+                        <p class="text-muted mb-0">Всего XP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="{{ url_for('test') }}" class="btn btn-outline-primary me-2">
+        📝 Пройти тест
+    </a>
+    <a href="{{ url_for('lesson', lesson_id=1) }}" class="btn btn-outline-success me-2">
+        📚 Уроки
+    </a>
+    <a href="{{ url_for('sandbox') }}" class="btn btn-outline-warning me-2">
+        💻 Песочница
+    </a>
+</div>
+{% endblock %}

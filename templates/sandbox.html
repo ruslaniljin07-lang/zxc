@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}Песочница — Codigo{% endblock %}
+
+{% block extra_css %}
+<style>
+    #sandboxCode {
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 14px;
+        tab-size: 4;
+    }
+    .output-box {
+        background: #2d2d2d;
+        color: #d4d4d4;
+        border-radius: 8px;
+        padding: 1rem;
+        min-height: 100px;
+        overflow-x: auto;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="mb-0">💻 Песочница</h3>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">
+                    Пищите код и нажимайте «Выполнить» для проверки вывода.
+                    Ограничение: 5 секунд на выполнение.
+                </p>
+
+                <textarea id="sandboxCode" class="form-control" rows="10">{{ '' }}</textarea>
+
+                <div class="d-flex justify-content-end mt-3">
+                    <button id="runSandbox" class="btn btn-warning">
+                        <i class="bi bi-play-circle"></i> Выполнить
+                    </button>
+                </div>
+
+                                <div id="sandboxOutput" class="output-box mt-3" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('runSandbox').addEventListener('click', function() {
+    const code = document.getElementById('sandboxCode').value;
+    const btn = this;
+    const output = document.getElementById('sandboxOutput');
+    btn.disabled = true;
+    btn.textContent = 'Выполнение...';
+
+    fetch('/sandbox', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({code: code})
+    })
+    .then(r => r.json())
+    .then(data => {
+        let text = '';
+        if (data.stdout) {
+            text += 'Output:\n' + data.stdout + '\n';
+        }
+        if (data.stderr) {
+            text += 'Error:\n' + data.stderr + '\n';
+        }
+        text += data.success ? '\n✅ Выполнено успешно!' : '\n❌ Ошибка выполнения';
+        output.textContent = text;
+        output.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Выполнить';
+    })
+    .catch(err => {
+        output.textContent = 'Ошибка: ' + err.message;
+        output.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Выполнить';
+    });
+});
+</script>
+{% endblock %}

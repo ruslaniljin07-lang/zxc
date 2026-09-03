@@ -1,0 +1,61 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.status-badge {
+    font-weight: 700;
+}
+
+.streak-counter {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.xp-bar {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.output-box {
+    font-size: 13px;
+}
+
+pre code {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 8px;
+    display: block;
+    overflow-x: auto;
+}
+
+pre {
+    background: #2d2d2d;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 13px;
+    overflow-x: auto;
+}

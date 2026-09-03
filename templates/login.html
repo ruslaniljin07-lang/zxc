@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Вход — Codigo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0">🔑 Вход</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Имя пользователя</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        Войти
+                    </button>
+                </form>
+            </div>
+        </div>
+        <p class="text-center mt-3">
+            Нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрироваться</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

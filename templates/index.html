@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Codigo — Учимся программировать онлайн{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-4 fw-bold mb-3">🎓 Добро пожаловать в Codigo</h1>
+    <p class="lead text-muted mb-4">
+        Интерактивное обучение программированию на Python<br>
+        с системой стикеров, уровнями и достижениями
+    </p>
+    {% if not current_user.is_authenticated %}
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-box-arrow-in-right"></i> Войти
+            </a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-person-plus"></i> Регистрация
+            </a>
+        </div>
+    {% else %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg">
+            <i class="bi bi-speedometer2"></i> Перейти в дашборд
+        </a>
+    {% endif %}
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4 text-center">
+            <h3>📝 Тест</h3>
+            <p>Определите ваш уровень знаний Python</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>📚 Уроки</h3>
+            <p>Интерактивные уроки с проверкой кода</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>💻 Песочница</h3>
+            <p>Практикуйтесь в безопасной среде</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

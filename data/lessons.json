@@ -1,0 +1,199 @@
+{
+  "modules": [
+    {
+      "id": 1,
+      "title": "Основы Python",
+      "description": "Введение в Python: переменные, типы данных, функции",
+      "lessons": [
+        {
+          "id": 1,
+          "title": "Переменные и типы данных",
+          "description": "Узнайте о переменных, строках, числах и булевых значениях в Python.",
+          "theory": [
+            "Переменные в Python создаются без объявления типа.",
+            "Строки (str) - текстовые данные, заключаются в кавычки.",
+            "Числа (int, float) - числовые данные.",
+            "Булевы значения (bool) - True или False."
+          ],
+          "initial_code": "name = \"Артур\"\nage = 100\nis_student = True\nprint(name)",
+          "test_code": "assert name == \"Артур\"\nassert age == 100\nassert is_student == True\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 50,
+          "hints": [
+            "name = 'Артур'",
+            "age = 100",
+            "is_student = True"
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Списки и циклы",
+          "description": "Работа со списками и циклы for/while.",
+          "theory": [
+            "Списки (list) хранят упорядоченные элементы.",
+            "Цикл for проходит по элементам списка.",
+            "Метод append() добавляет элемент в конец списка.",
+            "Функция len() возвращает длину списка."
+          ],
+          "initial_code": "fruits = [\"apple\", \"banana\", \"cherry\"]\nfruits.append(\"date\")\nprint(fruits)\nprint(len(fruits))",
+          "test_code": "assert len(fruits) == 4\nassert \"date\" in fruits\nassert \"apple\" in fruits\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 60,
+          "hints": [
+            "len(fruits) == 4 после append",
+            "date и apple должны быть в списке"
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Функции",
+          "description": "Определение и вызов функций в Python.",
+          "theory": [
+            "Функции определяются с помощью ключевого слова def.",
+            "Функция может принимать аргументы и возвращать значения.",
+            "Ключевое слово return завершает функцию.",
+            "Область видимости переменных внутри функции локальна."
+          ],
+          "initial_code": "def greet(name):\n    return \"Привет, \" + name + \"!\"\n\nresult = greet(\"Артур\")\nprint(result)",
+          "test_code": "assert greet(\"World\") == \"Привет, World!\"\nassert greet(\"Python\") == \"Привет, Python!\"\nassert result == \"Привет, Артур!\"\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 70,
+          "hints": [
+            "def greet(name): return 'Привет, ' + name + '!'",
+            "result = greet('Артур')"
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Строки и методы",
+          "description": "Работа со строками, методы upper(), lower(), split().",
+          "theory": [
+            "Строки поддерживают методы: upper(), lower(), split().",
+            "Метод upper() преобразует строку в верхний регистр.",
+            "Метод lower() преобразует строку в нижний регистр.",
+            "Метод split() разбивает строку на список по пробелам."
+          ],
+          "initial_code": "s = \"Hello World\"\nprint(s.upper())\nprint(s.lower())\nprint(s.split())",
+          "test_code": "assert s.upper() == \"HELLO WORLD\"\nassert s.lower() == \"hello world\"\nassert s.split() == [\"Hello\", \"World\"]\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 60,
+          "hints": [
+            "s.upper() == 'HELLO WORLD'",
+            "s.lower() == 'hello world'",
+            "s.split() == ['Hello', 'World']"
+          ]
+        },
+        {
+          "id": 5,
+          "title": "Условные конструкции",
+          "description": "if, elif, else - ветвление в Python.",
+          "theory": [
+            "Условная конструкция начинается с if.",
+            "elif добавляет дополнительное условие.",
+            "else выполняется, если все условия ложны.",
+            "Операторы: >, <, ==, !=, >=, <="
+          ],
+          "initial_code": "x = 15\nif x > 10:\n    result = \"Больше 10\"\nelif x == 10:\n    result = \"Равно 10\"\nelse:\n    result = \"Меньше 10\"\nprint(result)",
+          "test_code": "assert result == \"Больше 10\"\nx = 5\nif x > 10:\n    result2 = \"Больше 10\"\nelif x == 10:\n    result2 = \"Равно 10\"\nelse:\n    result2 = \"Меньше 10\"\nassert result2 == \"Меньше 10\"\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 70,
+          "hints": [
+            "x=15 -> 'Больше 10'",
+            "x=5 -> 'Меньше 10'",
+            "Используйте >, ==, else"
+          ]
+        },
+        {
+          "id": 6,
+          "title": "Словари",
+          "description": "Работа со словарями (dict): ключи, значения, методы.",
+          "theory": [
+            "Словарь (dict) хранит пары ключ-значение.",
+            "Доступ по ключу: dict[key] или dict.get(key).",
+            "Метод keys() возвращает все ключи.",
+            "Метод values() возвращает все значения."
+          ],
+          "initial_code": "person = {\"name\": \"Артур\", \"age\": 100}\nprint(person[\"name\"])\nprint(person.get(\"age\"))\nprint(person.keys())",
+          "test_code": "assert person[\"name\"] == \"Артур\"\nassert person.get(\"age\") == 100\nassert \"name\" in person.keys()\nassert \"age\" in person.values()\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 75,
+          "hints": [
+            "person['name'] для доступа по ключу",
+            "person.get('age') для безопасного доступа",
+            "person.keys() возвращает ключи"
+          ]
+        },
+        {
+          "id": 7,
+          "title": "Цикл while",
+          "description": "Цикл while с условием продолжения.",
+          "theory": [
+            "Цикл while повторяет код, пока условие истинно.",
+            "Важно изменять переменную цикла внутри тела.",
+            "break прерывает цикл досрочно.",
+            "continue переходит к следующей итерации."
+          ],
+          "initial_code": "count = 0\nwhile count < 5:\n    print(count)\n    count += 1",
+          "test_code": "count = 0\nresult = []\nwhile count < 5:\n    result.append(count)\n    count += 1\nassert result == [0, 1, 2, 3, 4]\nassert count == 5\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 65,
+          "hints": [
+            "count = 0 перед циклом",
+            "count += 1 внутри цикла",
+            "while count < 5"
+          ]
+        },
+        {
+          "id": 8,
+          "title": "Обработка ошибок",
+          "description": "try/except для перехвата исключений.",
+          "theory": [
+            "try блок содержит код, который может вызвать ошибку.",
+            "except блок обрабатывает исключение.",
+            "Можно указать тип исключения: except ValueError.",
+            "finally блок выполняется всегда."
+          ],
+          "initial_code": "try:\n    num = int(\"123\")\nexcept ValueError:\n    num = 0\nprint(num)",
+          "test_code": "try:\n    num = int(\"abc\")\nexcept ValueError:\n    num = 0\nassert num == 0\ntry:\n    num2 = int(\"456\")\nexcept ValueError:\n    num2 = 0\nassert num2 == 456\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 80,
+          "hints": [
+            "try: num = int(...)",
+            "except ValueError: num = 0",
+            "int('abc') вызовет ошибку"
+          ]
+        },
+        {
+          "id": 9,
+          "title": "Генераторы списков",
+          "description": "List comprehension для компактного создания списков.",
+          "theory": [
+            "Генераторы списков создают списки в одну строку.",
+            "Синтаксис: [выражение for элемент in итерируемое]",
+            "Можно добавить условие: [x for x in range(10) if x % 2 == 0]",
+            "Можно вложенные циклы: [x*y for x in range(3) for y in range(3)]"
+          ],
+          "initial_code": "squares = [x**2 for x in range(5)]\nprint(squares)",
+          "test_code": "squares = [x**2 for x in range(5)]\nassert squares == [0, 1, 4, 9, 16]\nevens = [x for x in range(10) if x % 2 == 0]\nassert evens == [0, 2, 4, 6, 8]\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 85,
+          "hints": [
+            "squares = [x**2 for x in range(5)]",
+            "evens = [x for x in range(10) if x % 2 == 0]",
+            "**2 для возведения в квадрат"
+          ]
+        },
+        {
+          "id": 10,
+          "title": "Модули и импорт",
+          "description": "Импорт модулей и использование стандартной библиотеки.",
+          "theory": [
+            "import module_name импортирует весь модуль.",
+            "from module import function импортирует конкретную функцию.",
+            "import module as alias создаёт псевдоним.",
+            "math, random, datetime - популярные модули."
+          ],
+          "initial_code": "import math\nprint(math.pi)\nprint(math.sqrt(16))",
+          "test_code": "import math\nimport random\nassert math.pi > 3.14\nassert math.sqrt(16) == 4.0\nnum = random.randint(1, 10)\nassert 1 <= num <= 10\nprint(\"✅ Все проверки пройдены!\")",
+          "xp_reward": 90,
+          "hints": [
+            "import math для математических функций",
+            "math.pi для числа Пи",
+            "random.randint(1, 10) для случайного числа"
+          ]
+        }
+      ]
+    }
+  ]
+}

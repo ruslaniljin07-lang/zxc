@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Шпаргалка — Codigo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-info text-white text-center">
+                <h3 class="mb-0">📄 Шпаргалка Python</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-laptop"></i> Переменные</h5>
+                        <pre class="bg-dark text-white p-2 rounded"><code># Переменные
+name = "Артур"
+age = 100
+is_student = True</code></pre>
+
+                        <h5 class="mt-4">📊 Типы данных</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">int — целые числа: <code>42</code></li>
+                            <li class="list-group-item">float — дробные: <code>3.14</code></li>
+                            <li class="list-group-item">str — строки: <code>"Привет"</code></li>
+                            <li class="list-group-item">bool — True/False</li>
+                            <li class="list-group-item">list — списки: <code>[1, 2, 3]</code></li>
+                            <li class="list-group-item">dict — словари: <code>{"a": 1}</code></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-gear"></i> Управляющие конструкции</h5>
+                        <pre class="bg-dark text-white p-2 rounded"><code># Условия
+if x > 5:
+    print("Больше")
+elif x == 5:
+    print("Равно")
+else:
+    print("Меньше")
+
+# Циклы
+for i in range(5):
+    print(i)
+
+while x < 10:
+    x += 1
+
+# Функции
+def greet(name):
+    return f"Привет, {name}!"
+
+print(greet("Артур"))</code></pre>
+
+                        <h5 class="mt-4">🔁 Списки и методы</h5>
+                        <pre class="bg-dark text-white p-2 rounded"><code># Работа со списками
+fruits = ["apple", "banana", "cherry"]
+fruits.append("date")
+fruits.remove("banana")
+for fruit in fruits:
+    print(fruit)</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
